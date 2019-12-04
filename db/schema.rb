@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_160749) do
+ActiveRecord::Schema.define(version: 2019_12_04_154322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "product_in_shops", force: :cascade do |t|
+    t.float "price"
+    t.bigint "product_id"
+    t.bigint "shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_in_shops_on_product_id"
+    t.index ["shop_id"], name: "index_product_in_shops_on_shop_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.text "name"
@@ -23,6 +33,15 @@ ActiveRecord::Schema.define(version: 2019_11_27_160749) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+  create_table "shops", force: :cascade do |t|
+    t.text "name"
+    t.text "address"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shops_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.text "password_digest"
@@ -30,5 +49,8 @@ ActiveRecord::Schema.define(version: 2019_11_27_160749) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "product_in_shops", "products"
+  add_foreign_key "product_in_shops", "shops"
   add_foreign_key "products", "users"
+  add_foreign_key "shops", "users"
 end
