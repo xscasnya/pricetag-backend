@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_154322) do
+ActiveRecord::Schema.define(version: 2020_01_15_145516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_154322) do
     t.bigint "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id", "shop_id"], name: "index_product_in_shops_on_product_id_and_shop_id", unique: true
     t.index ["product_id"], name: "index_product_in_shops_on_product_id"
     t.index ["shop_id"], name: "index_product_in_shops_on_shop_id"
   end

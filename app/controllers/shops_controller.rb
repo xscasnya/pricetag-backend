@@ -3,33 +3,33 @@ class ShopsController < ApplicationController
 
   # GET /shops
   def index
-    @shops = Shop.all
-
-    render json: @shops
+    @shops = current_user.shops
+    json_response(@shops)
   end
 
   # GET /shops/1
   def show
-    render json: @shop
+    json_response(@shop)
   end
 
   # POST /shops
   def create
     @shop = Shop.new(shop_params)
+    @shop.user = current_user
 
     if @shop.save
-      render json: @shop, status: :created, location: @shop
+      json_response(@shop, :created, @shop)
     else
-      render json: @shop.errors, status: :unprocessable_entity
+      json_response(@shop.errors, :unprocessable_entity)
     end
   end
 
   # PATCH/PUT /shops/1
   def update
     if @shop.update(shop_params)
-      render json: @shop
+      json_response(@shop)
     else
-      render json: @shop.errors, status: :unprocessable_entity
+      json_response(@shop.errors, :unprocessable_entity)
     end
   end
 
@@ -39,9 +39,10 @@ class ShopsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+  # Use callbacks to share common setup or constraints between actions.
     def set_shop
-      @shop = Shop.find(params[:id])
+      @shop = current_user.shops.find_by!(id: params[:id]) if current_user
     end
 
     # Only allow a trusted parameter "white list" through.

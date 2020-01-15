@@ -14,6 +14,15 @@ class ProductsController < ApplicationController
   end
 
   # POST /products
+  # {
+  #	"name": "Eggs",
+  #	"prices": [
+  #		{
+  #			"shop_id": 1,
+  #			"price": 25.43
+  #		}
+  #	]
+  #}
   def create
     @product = Product.new(product_params)
     @product.user = current_user
@@ -48,6 +57,6 @@ class ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.require(:product).permit(:name, :user_id)
+      params.require(:product).permit(:name, :product_in_shops_attributes => [:shop_id, :price])
     end
 end
