@@ -10,19 +10,10 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   def show
-    json_response(@product)
+    json_response(@product.to_json(:include => :product_in_shops))
   end
 
   # POST /products
-  # {
-  #	"name": "Eggs",
-  #	"prices": [
-  #		{
-  #			"shop_id": 1,
-  #			"price": 25.43
-  #		}
-  #	]
-  #}
   def create
     @product = Product.new(product_params)
     @product.user = current_user
@@ -36,7 +27,7 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
-    if @product.update(product_params)
+    if @product.update_attributes(product_params)
       json_response(@product)
     else
       json_response(@product.errors, :unprocessable_entity)
@@ -57,6 +48,6 @@ class ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.require(:product).permit(:name, :product_in_shops_attributes => [:shop_id, :price])
+      params.require(:product).permit!
     end
 end
