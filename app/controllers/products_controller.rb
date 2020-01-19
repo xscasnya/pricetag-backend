@@ -27,7 +27,9 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
-    if @product.update_attributes(product_params)
+    params_deletion, params_without_deletion = get_update_params(product_params)
+
+    if @product.update_attributes(params_deletion) && @product.update_attributes(params_without_deletion)
       json_response(@product)
     else
       json_response(@product.errors, :unprocessable_entity)
@@ -41,13 +43,15 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = current_user.products.find_by!(id: params[:id]) if current_user
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def product_params
-      params.require(:product).permit!
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = current_user.products.find_by!(id: params[:id]) if current_user
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def product_params
+    params.require(:product).permit!
+  end
+
 end
