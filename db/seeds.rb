@@ -60,3 +60,33 @@ prices = [1.22, 0.66, 2.06, 3.37, 1.57]
                           product_id: products[p].id)
   end
 end
+
+shopping_list1 = ShoppingList.create!(name: "Pasta alla carbonara",
+                           user_id: user.id)
+
+shopping_list2 = ShoppingList.create!(name: "Pancake",
+                           user_id: user.id)
+
+product_in_shopping_list1 = ProductInShoppingList.create!(shopping_list_id: shopping_list1.id,
+                           product_id: product1.id,
+                           quantity: 1)
+
+product_in_shopping_list2 = ProductInShoppingList.create!(shopping_list_id: shopping_list1.id,
+                           product_id: product2.id,
+                           quantity: 1)
+
+product_in_shopping_list3 = ProductInShoppingList.create!(shopping_list_id: shopping_list1.id,
+                           product_id: product4.id,
+                           quantity: 1)
+
+product_in_shopping_list4 = ProductInShoppingList.create!(shopping_list_id: shopping_list2.id,
+                           product_id: product1.id,
+                           quantity: 1)
+
+product_in_shopping_list5 = ProductInShoppingList.create!(shopping_list_id: shopping_list2.id,
+                           product_id: product3.id,
+                           quantity: 1)
+
+product_in_shopping_list6 = ProductInShoppingList.create!(shopping_list_id: shopping_list2.id,
+                           product_id: product5.id,
+                           quantity: 1)
