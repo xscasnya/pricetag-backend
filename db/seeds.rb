@@ -47,22 +47,13 @@ product5 = Product.create!(name: "flour 500 g",
 
 shops = [shop1, shop2, shop3, shop4, shop5]
 products = [product1, product2, product3, product4, product5]
+prices = [1.22, 0.66, 2.06, 3.37, 1.57]
+
 
 5.times do |p|
   5.times do |s|
-    price = 0
 
-    if p + 1 == 1
-      price = 1.22 + rand(200) / 100.0
-    elsif p + 1 == 2
-      price = 0.66 + rand(200) / 100.0
-    elsif p + 1 == 3
-      price = 2.06 + rand(200) / 100.0
-    elsif p + 1 == 4
-      price = 3.37 + rand(200) / 100.0
-    elsif p + 1 == 5
-      price = 1.57 + rand(200) / 100.0
-    end
+    price = prices[p] +  rand(200) / 100.0
 
     ProductInShop.create!(price: price,
                           shop_id: shops[s].id,
