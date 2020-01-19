@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2020_01_15_145516) do
 
   create_table "product_in_shops", force: :cascade do |t|
     t.float "price"
-    t.bigint "product_id"
     t.bigint "shop_id"
+    t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id", "shop_id"], name: "index_product_in_shops_on_product_id_and_shop_id", unique: true
