@@ -10,4 +10,7 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :product_in_shops, :allow_destroy => true
 
+  attr_accessor :price
+  attr_accessor :quantity
+
 end
