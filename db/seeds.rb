@@ -36,13 +36,13 @@ product1 = Product.create!(name: "eggs packet of 4",
 product2 = Product.create!(name: "spaghetti 400 g",
                     user_id: user.id)
 
-product3 = Product.create!(name: "lamb 400 g",
+product3 = Product.create!(name: "milk 1l",
                     user_id: user.id)
 
 product4 = Product.create!(name: "pork 400 g",
                     user_id: user.id)
 
-product5 = Product.create!(name: "bread 500 g",
+product5 = Product.create!(name: "flour 500 g",
                     user_id: user.id)
 
 5.times do |p|
@@ -56,7 +56,7 @@ product5 = Product.create!(name: "bread 500 g",
                     shop_id: s+1,
                     product_id: p+1)
         elsif p+1 == 3
-            ProductInShop.create!(price: 5.37 + rand(200)/100.0,
+            ProductInShop.create!(price: 2.06 + rand(200)/100.0,
                     shop_id: s+1,
                     product_id: p+1)
         elsif p+1 == 4
