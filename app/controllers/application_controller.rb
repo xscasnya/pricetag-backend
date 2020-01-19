@@ -14,18 +14,18 @@ class ApplicationController < ActionController::API
     @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
   end
 
-  def get_update_params(params)
+  def get_update_params(params, nested_attributes_name = :product_in_shops_attributes)
     to_delete = params.clone
     without_delete = params.clone
 
-    to_delete[:product_in_shops_attributes] = []
-    without_delete[:product_in_shops_attributes] = []
+    to_delete[nested_attributes_name] = []
+    without_delete[nested_attributes_name] = []
 
-    params[:product_in_shops_attributes].each do |record|
+    params[nested_attributes_name].each do |record|
       if record.key?("_destroy")
-        to_delete[:product_in_shops_attributes].push(record)
+        to_delete[nested_attributes_name].push(record)
       else
-        without_delete[:product_in_shops_attributes].push(record)
+        without_delete[nested_attributes_name].push(record)
       end
     end
 

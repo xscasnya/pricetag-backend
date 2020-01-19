@@ -9,7 +9,19 @@ class ShopsController < ApplicationController
 
   # GET /shops/1
   def show
-    json_response(@shop.to_json(:include => :product_in_shops))
+    json_response(@shop.to_json(
+        :include => {
+            :product_in_shops => {
+                :except => [:created_at, :updated_at, :product_id],
+                :include => {
+                    :product => {
+                        :except => [:created_at, :updated_at]
+                    }
+                }
+            }
+        },
+        :except => [:created_at, :updated_at, :user_id]
+    ))
   end
 
   # POST /shops
@@ -26,7 +38,9 @@ class ShopsController < ApplicationController
 
   # PATCH/PUT /shops/1
   def update
-    if @shop.update(shop_params)
+    params_deletion, params_without_deletion = get_update_params(shop_params)
+
+    if @shop.update_attributes(params_deletion) && @shop.update_attributes(params_without_deletion)
       json_response(@shop)
     else
       json_response(@shop.errors, :unprocessable_entity)
@@ -41,12 +55,12 @@ class ShopsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-    def set_shop
-      @shop = current_user.shops.find_by!(id: params[:id]) if current_user
-    end
+  def set_shop
+    @shop = current_user.shops.find_by!(id: params[:id]) if current_user
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def shop_params
-      params.require(:shop).permit(:name, :address, :user_id)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def shop_params
+    params.require(:shop).permit!
+  end
 end

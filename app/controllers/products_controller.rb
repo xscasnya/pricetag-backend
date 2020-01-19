@@ -10,7 +10,19 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   def show
-    json_response(@product.to_json(:include => :product_in_shops))
+    json_response(@product.to_json(
+        :include => {
+            :product_in_shops => {
+                :except => [:created_at, :updated_at, :shop_id, :product_id],
+                :include => {
+                    :shop => {
+                        :except => [:created_at, :updated_at, :user_id]
+                    }
+                }
+            }
+        },
+        :except => [:created_at, :updated_at, :user_id]
+    ))
   end
 
   # POST /products
