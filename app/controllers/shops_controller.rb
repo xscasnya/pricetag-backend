@@ -9,7 +9,7 @@ class ShopsController < ApplicationController
 
   # GET /shops/1
   def show
-    json_response(@shop)
+    json_response(@shop.to_json(:include => :product_in_shops))
   end
 
   # POST /shops

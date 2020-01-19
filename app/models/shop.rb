@@ -4,4 +4,6 @@ class Shop < ApplicationRecord
   has_many :products, :through => :product_in_shops
 
   validates_presence_of :name, :address
+
+  accepts_nested_attributes_for :product_in_shops, :allow_destroy => true
 end
