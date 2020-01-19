@@ -45,22 +45,6 @@ product4 = Product.create!(name: "pork 400 g",
 product5 = Product.create!(name: "bread 500 g",
                     user_id: user.id)
 
-#product_in_shop1 = ProductInShop.create!(price: 4.55,
-#                    shop_id: shop1.id,
-#                    product_id: product1.id)
-
-#product_in_shop2 = ProductInShop.create!(price: 3.55,
-#                    shop_id: shop2.id,
-#                    product_id: product1.id)
-
-#product_in_shop3 = ProductInShop.create!(price: 2.37,
-#                    shop_id: shop1.id,
-#                    product_id: product2.id)
-
-#product_in_shop4 = ProductInShop.create!(price: 1.95,
-#                    shop_id: shop2.id,
-#                    product_id: product2.id)
-
 5.times do |p|
     5.times do |s|
         if p+1 == 1
