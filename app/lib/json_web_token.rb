@@ -18,7 +18,7 @@ class JsonWebToken
     HashWithIndifferentAccess.new body
       # rescue from all decode errors
   rescue JWT::DecodeError => e
-    # raise custom error to be handled by custom handler
+    # raise custom error to be handled by custom handlerX
     raise ExceptionHandler::InvalidToken, e.message
   end
 end
