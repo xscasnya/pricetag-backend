@@ -12,10 +12,10 @@ class ShopsController < ApplicationController
     json_response(@shop.to_json(
         :include => {
             :product_in_shops => {
-                :except => [:created_at, :updated_at, :product_id],
+                :except => [:created_at, :updated_at, :product_id, :shop_id],
                 :include => {
                     :product => {
-                        :except => [:created_at, :updated_at]
+                        :except => [:created_at, :updated_at, :user_id]
                     }
                 }
             }
