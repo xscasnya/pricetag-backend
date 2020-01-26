@@ -53,7 +53,7 @@ class CalculationController < ApplicationController
       if missing_products.length > 0
         missing_products = Product.where(id: missing_products, user_id: current_user)
         missing_products.each do |missing_product|
-          missing_product.price = 'N/A'
+          missing_product.price = nil
           missing_product.quantity = get_quantity_by_id(missing_product.id)
           shop.products_to_report.push(missing_product.as_json(:methods => [:price, :quantity]))
         end
